@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitThis": false,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "app/**/*",
+    "config/**/*",
+    "test/**/*",
+    "typings/**/*",
+  ],
+  "files": [
+    "app.ts",
+    "bootstrap.ts",
+  ],
+  "ts-node": {
+    "files": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

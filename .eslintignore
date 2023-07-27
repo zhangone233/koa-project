@@ -1,0 +1,12 @@
+*.bat
+*.json
+*.log
+*.csv
+*.sql
+*.md
+*.lock
+**/*/*.d.ts
+
+dist
+coverage
+node_modules/
