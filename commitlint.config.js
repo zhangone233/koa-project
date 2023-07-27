@@ -1,4 +1,4 @@
-module.exports = { 
+module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
     'type-enum': [ // type枚举

@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "app/**/*",
+    "test/**/*",
+    "config/**/*",
+    "koa/**/*.ts",
+    "typings/**/*",
+  ],
+  "files": [
+    "app.ts",
+    ".eslintrc.js",
+    "bootstrap.ts",
+    "commitlint.config.js"
+  ]
+}

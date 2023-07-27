@@ -18,13 +18,30 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@app/*": [
+        "app/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ]
+    },
+    "typeRoots": [
+      "node_modules/@types",
+      "typings/types"
+    ]
   },
   "include": [
-    "app/**/*",
-    "config/**/*",
-    "test/**/*",
-    "typings/**/*",
+    "app/**/*.ts",
+    "koa/**/*.ts",
+    "test/**/*.ts",
+    "config/**/*.ts",
+    "typings/**/*.d.ts"
   ],
   "files": [
     "app.ts",

@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "build": "npx tsc",
-    "start": "NODE_ENV=development bootstrap.ts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "rm -rf dist && npx tsc && npx tsc-alias",
+    "server": "tsnd --respawn --transpile-only --inspect -r tsconfig-paths/register bootstrap.ts",
+    "start": "cross-env NODE_ENV=development pnpm run server"
   },
   "keywords": [
     "applet"
@@ -19,18 +20,27 @@
   "author": "IC",
   "license": "ISC",
   "dependencies": {
+    "@koa/router": "^12.0.0",
     "koa": "^2.14.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^17.6.7",
     "@types/koa": "^2.13.7",
-    "@types/node": "^20.4.5",
+    "@types/koa__router": "^12.0.0",
+    "@types/node": "^16.18.39",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.45.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
+    "node-hmr": "^1.4.0",
     "prettier": "^3.0.0",
     "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.7",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.6"
   },
   "husky": {
