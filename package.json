@@ -7,8 +7,9 @@
     "test": "test",
     "prepare": "husky install",
     "build": "rm -rf dist && npx tsc && npx tsc-alias",
-    "server": "tsnd --respawn --transpile-only --inspect -r tsconfig-paths/register bootstrap.ts",
-    "start": "cross-env NODE_ENV=development pnpm run server"
+    "server": "tsnd --respawn --transpile-only -r tsconfig-paths/register bootstrap.ts",
+    "server:dev": "tsnd --respawn --transpile-only --debug --inspect -r tsconfig-paths/register bootstrap.ts",
+    "start": "cross-env NODE_ENV=development pnpm run server:dev"
   },
   "keywords": [
     "applet"
@@ -21,12 +22,14 @@
   "license": "ISC",
   "dependencies": {
     "@koa/router": "^12.0.0",
-    "koa": "^2.14.2"
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^17.6.7",
     "@types/koa": "^2.13.7",
+    "@types/koa-bodyparser": "^4.3.10",
     "@types/koa__router": "^12.0.0",
     "@types/node": "^16.18.39",
     "@typescript-eslint/eslint-plugin": "^6.2.0",

@@ -1,26 +1,43 @@
 import { TApp } from "@/app";
 
+// https://github.com/koajs/router/blob/master/API.md
 export default (app: TApp): Promise<void> | void => {
   const { router } = app;
+  console.log("app", app);
   console.log("router", router);
 
-  router.get("/", (ctx: unknown) => {
+  router.get("/", (ctx) => {
     console.log(ctx, "ctx");
-    // @ts-expect-error test
+
     ctx.body = {
       code: 0,
     };
   });
 
-  router.get("/api/test", (ctx: unknown, a: unknown, b: unknown) => {
+  router.get("/api/test/:id", (ctx, next) => {
     console.log(ctx, "ctx");
-    console.log(a, "a");
-    console.log(b, "b");
+    console.log(next);
 
-    // @ts-expect-error test
+    ctx.response.status = 202;
     ctx.body = {
       code: 0,
-      message: "test",
+      message: "ttt",
     };
+
+    // return {
+    //   code: 0,
+    //   message: 'ttt'
+    // }
+  });
+
+  router.post("/api/form", (ctx) => {
+    console.log(ctx);
+    console.log(ctx.request.body, "ctx.request.body");
+
+    ctx.body = {
+      code: 0,
+      message: "next",
+    };
+    // next();
   });
 };

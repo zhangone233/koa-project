@@ -1,5 +1,6 @@
 import { Koa } from "koa";
 import Router from '@koa/router';
+import bodyparser from 'koa-bodyparser';
 
 export const app = new Koa();
 export type TApp = typeof app;
@@ -8,26 +9,37 @@ export const router = new Router();
 export const lifeCycle: App.AppLifeCycle<TApp> = {
   http: {
     async beforeStart() {
-      // Before app start
-      // console.log('http Starting server...');      
+
     },
     async afterStart() {
-      console.log('\x1b[42;30m http \x1b[40;32m Server started \x1b[0m');
+      console.log(`\x1b[42;30m http \x1b[40;32m 服务已经启动：http://localhost:${process.env.PORT || 4000} \x1b[0m`);
     },
   },
 
   https: {
     async beforeStart() {
-      // Before app start
-      // console.log('https Starting server...');
+
     },
     async afterStart() {
-      console.log('\x1b[42;30m https \x1b[40;32m Server started \x1b[0m');
+      console.log(`\x1b[42;30m https \x1b[40;32m 服务已经启动：http://localhost:${process.env.PORT2 || 4001} \x1b[0m`);
     },
   },
 
   prepare(app) {
     app.router = router;
-    app.use(router.routes());
+    app
+      .use(bodyparser({
+        strict: true // https://github.com/koajs/bodyparser/tree/2.x
+      }))
+      .use(router.routes())
+      .use(router.allowedMethods({
+        throw: true, // 抛出错误，而不是设置状态和头
+        notImplemented() {
+          console.error('501 抛出返回值来代替默认的未实现错误');
+        },
+        methodNotAllowed() {
+          throw new Error('405 不被允许的请求方式')
+        }
+      }));
   },
 };
