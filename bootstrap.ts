@@ -15,11 +15,10 @@ const startHttps = async (callback: http.RequestListener) => {
 }
 
 const start = async () => {
-  await lifeCycle.prepare(app);
-
-  await routesGen(app);
-
   // console.log(process.env, 'env');
+
+  await lifeCycle.prepare(app);
+  await routesGen(app);
 
   const callback: http.RequestListener = app.callback;
   // if (process.env.NODE_ENV === 'development') {
@@ -34,13 +33,11 @@ const start = async () => {
 
   // if (process.env.NODE_ENV === 'development' && process.env.npm_lifecycle_event === 'server:dev') {
   //   process.on('SIGTERM', () => {
-  //     console.log('ssss');
-      
   //     process.kill(process.pid, 'SIGINT');
   //   });
   // }
 
   await Promise.all([startHttp(callback), startHttps(callback)]);
 }
+
 start();
-// console.log('\x1b[42;30m DONE \x1b[40;32m Compiled successfully in 19987ms\x1b[0m');

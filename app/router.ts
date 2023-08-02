@@ -1,7 +1,7 @@
-import { TApp } from "@/app";
+import controller from "@app/controller";
 
 // https://github.com/koajs/router/blob/master/API.md
-export default (app: TApp): Promise<void> | void => {
+export default (app: App): Promise<void> | void => {
   const { router } = app;
   console.log("app", app);
   console.log("router", router);
@@ -14,21 +14,7 @@ export default (app: TApp): Promise<void> | void => {
     };
   });
 
-  router.get("/api/test/:id", (ctx, next) => {
-    console.log(ctx, "ctx");
-    console.log(next);
-
-    ctx.response.status = 202;
-    ctx.body = {
-      code: 0,
-      message: "ttt",
-    };
-
-    // return {
-    //   code: 0,
-    //   message: 'ttt'
-    // }
-  });
+  router.get("/api/test/:id", controller.tt.testRequest.bind(controller.tt));
 
   router.post("/api/form", (ctx) => {
     console.log(ctx);

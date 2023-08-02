@@ -1,12 +1,15 @@
+import fs from 'fs';
+import path from 'path';
+import { requireContext } from '@app/utils/fs'
+
 import { Koa } from "koa";
 import Router from '@koa/router';
 import bodyparser from 'koa-bodyparser';
 
 export const app = new Koa();
-export type TApp = typeof app;
 export const router = new Router();
 
-export const lifeCycle: App.AppLifeCycle<TApp> = {
+export const lifeCycle: App.AppLifeCycle<App> = {
   http: {
     async beforeStart() {
 
@@ -25,8 +28,26 @@ export const lifeCycle: App.AppLifeCycle<TApp> = {
     },
   },
 
-  prepare(app) {
+  async prepare(app) {
     app.router = router;
+
+    // console.log(path.join('app', 'controller', 'tt'));
+    // console.log(path.resolve(__dirname, '/app', '/controller', '/tt', 'index'));
+
+    // const ttBuffer = fs.readFileSync(path.resolve(__dirname, 'app', 'controller', 'tt', 'index.ts'), {
+    //   encoding: 'utf-8'
+    // });
+    // console.log(ttBuffer, 'buffer');
+
+    // console.log(path.resolve(__dirname, 'app', 'controller', 'tt', 'index.ts'), 'path');
+    // console.log(requireContext('./service'));
+
+    // const res = await import('@app/controller/tt');
+    // console.log(res, 'res');
+
+    // app.controller = res;
+    // const tt = fs.readFileSync(path.)
+
     app
       .use(bodyparser({
         strict: true // https://github.com/koajs/bodyparser/tree/2.x

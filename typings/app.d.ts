@@ -1,6 +1,12 @@
-// / <reference path="../node_modules/@types/koa/index.d.ts" />
+// / <reference types="koa" />
+
+declare type App = App.KoaApplication;
 
 declare namespace App {
+  import { Koa } from 'koa';
+
+  type KoaApplication = Koa;
+  type Ctx = Koa['context'];
 
   interface LifeCycle<T> {
     beforeStart: (this: T, app: T) => Promise<void> | void;
