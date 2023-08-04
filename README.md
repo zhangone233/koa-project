@@ -5,6 +5,15 @@
 + Node >= 16.14
 + pnpm >= 8
 
+
+## 格式化方式 (vscode编辑器环境)
+工具：prettier + eslint(TS Parser)
++ `control + s` 保存文件自动格式化：eslint fix
++ 手动快捷键格式化：
+  + 1. prettier：`shift + option + f`
+  + 2. eslint：`control + s` （自动）
+
+
 ## 目录
 
 

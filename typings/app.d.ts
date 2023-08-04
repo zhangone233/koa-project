@@ -19,3 +19,10 @@ declare namespace App {
     prepare(app: T): Promise<void> | void;
   }
 }
+
+/** RouteController Method */
+declare type RouteController<T extends string> = {
+  [K in T]: (ctx: App.ctx) => Promise<unknown> | unknown;
+}
+
+declare type Methods = 'get' | 'post' | 'put' | 'delete' | 'options' | 'patch';

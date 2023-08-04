@@ -1,10 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import { requireContext } from '@app/utils/fs'
-
-import { Koa } from "koa";
+import { Koa } from 'koa';
+import cors from '@koa/cors';
 import Router from '@koa/router';
 import bodyparser from 'koa-bodyparser';
+import { responseTime } from '@app/middleware/common';
 
 export const app = new Koa();
 export const router = new Router();
@@ -30,25 +28,15 @@ export const lifeCycle: App.AppLifeCycle<App> = {
 
   async prepare(app) {
     app.router = router;
-
-    // console.log(path.join('app', 'controller', 'tt'));
-    // console.log(path.resolve(__dirname, '/app', '/controller', '/tt', 'index'));
-
-    // const ttBuffer = fs.readFileSync(path.resolve(__dirname, 'app', 'controller', 'tt', 'index.ts'), {
-    //   encoding: 'utf-8'
-    // });
-    // console.log(ttBuffer, 'buffer');
-
-    // console.log(path.resolve(__dirname, 'app', 'controller', 'tt', 'index.ts'), 'path');
-    // console.log(requireContext('./service'));
-
-    // const res = await import('@app/controller/tt');
-    // console.log(res, 'res');
-
-    // app.controller = res;
-    // const tt = fs.readFileSync(path.)
+    app.controller = (await import('@app/controller')).default;
 
     app
+      .use(cors({
+        credentials: true,
+        keepHeadersOnError: true,
+        allowHeaders: ['X-Requested-With']
+      }))
+      .use(responseTime())
       .use(bodyparser({
         strict: true // https://github.com/koajs/bodyparser/tree/2.x
       }))
@@ -59,8 +47,10 @@ export const lifeCycle: App.AppLifeCycle<App> = {
           console.error('501 抛出返回值来代替默认的未实现错误');
         },
         methodNotAllowed() {
-          throw new Error('405 不被允许的请求方式')
+          throw new Error('405 不被允许的请求方式');
         }
       }));
+
+    // todo: 404 status
   },
 };
