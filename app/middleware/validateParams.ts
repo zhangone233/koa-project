@@ -7,7 +7,7 @@ export const getValidateParams = (
 ): Middleware => {
   return async function (ctx, next) {
     let data: unknown;
-    if (['get', 'delete'].includes(method)) {
+    if (['get', 'delete'].includes(method.toLowerCase())) {
       data = ctx.request.query;
     } else {
       data = ctx.request.body;

@@ -1,8 +1,13 @@
 import { Koa } from 'koa';
 import cors from '@koa/cors';
+import logger from 'koa-logger';
 import Router from '@koa/router';
 import bodyparser from 'koa-bodyparser';
-import { responseTime } from '@app/middleware/common';
+import {
+  responseTime,
+  captureError,
+  extensionArgs
+} from '@app/middleware/common';
 
 export const app = new Koa();
 export const router = new Router();
@@ -31,15 +36,18 @@ export const lifeCycle: App.AppLifeCycle<App> = {
     app.controller = (await import('@app/controller')).default;
 
     app
+      .use(logger())
+      .use(responseTime())
+      .use(captureError())
       .use(cors({
         credentials: true,
         keepHeadersOnError: true,
         allowHeaders: ['X-Requested-With']
       }))
-      .use(responseTime())
       .use(bodyparser({
         strict: true // https://github.com/koajs/bodyparser/tree/2.x
       }))
+      .use(extensionArgs())
       .use(router.routes())
       .use(router.allowedMethods({
         throw: true, // 抛出错误，而不是设置状态和头

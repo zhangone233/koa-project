@@ -6,7 +6,12 @@ declare namespace App {
   import { Koa } from 'koa';
 
   type KoaApplication = Koa;
-  type Ctx = Koa['context'];
+  type Ctx<T = unknown> = Koa['context'] & {
+    args: {
+      /** 入参。 来自request.query | request.body */
+      req: T
+    }
+  };
 
   interface LifeCycle<T> {
     beforeStart: (this: T, app: T) => Promise<void> | void;

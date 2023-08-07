@@ -3,8 +3,10 @@ export interface UserLoginReq {
   dy_uid: string;
   nick_name: string;
   avatar: string;
+  anonymous_code?: number;
 }
 
 export interface UserLoginResp {
-  age: number;
+  /** session_key */
+  token: string;
 }
