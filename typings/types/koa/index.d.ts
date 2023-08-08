@@ -13,8 +13,7 @@ declare module 'koa' {
   }
 
   declare namespace App {
-    // do something
-
+    interface Context extends Application.Context {}
   }
 
   export {

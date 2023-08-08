@@ -1,12 +1,17 @@
 import BaseService from '@app/base/_service';
+import { decrypt } from '@app/utils/decryptData';
 import https, { type RequestOptions } from 'https';
 import { APP_ID, APP_SECRET } from '@app/constant/app';
-import type { UserLoginReq, UserLoginResp } from '@app/types/user';
+
+import type {
+  UserLoginReq,
+  UserLoginResp,
+  UserSensitiveDataProcessingReq,
+  UserSensitiveDataProcessingResp,
+} from '@app/types/user';
 
 export class IndexService extends BaseService {
   async userLogin(req: UserLoginReq): Promise<UserLoginResp> {
-    console.log(req, 'req');
-
     return new Promise((resolve, reject) => {
       const { code } = req;
       const body = JSON.stringify({
@@ -58,6 +63,24 @@ export class IndexService extends BaseService {
       request.end(() => {
         console.log('request end');
       });
+    });
+  }
+
+  async userSensitiveDataProcessing(
+    req: UserSensitiveDataProcessingReq,
+    sessionKey: string
+  ): Promise<UserSensitiveDataProcessingResp> {
+    return new Promise((resolve, reject) => {
+      try {
+        const { iv, encryptedData } = req;
+        const dataJson = decrypt(encryptedData, sessionKey, iv);
+        const data = JSON.parse(dataJson) as UserSensitiveDataProcessingResp;
+        resolve(data);
+      } catch (err) {
+        reject(
+          this._Err.UNKNOWN_ERROR_CODE('解密失败', JSON.stringify(err), err)
+        );
+      }
     });
   }
 }

@@ -6,7 +6,7 @@ declare namespace App {
   import { Koa } from 'koa';
 
   type KoaApplication = Koa;
-  type Ctx<T = unknown> = Koa['context'] & {
+  type Ctx<T = unknown> = Koa.Context & {
     args: {
       /** 入参。 来自request.query | request.body */
       req: T
