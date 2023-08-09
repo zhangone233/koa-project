@@ -7,12 +7,12 @@ import { app, lifeCycle } from './app';
 const startHttp = async (callback: http.RequestListener) => {
   await lifeCycle?.http?.beforeStart?.call(app, app);
   http.createServer(callback.call(app)).listen(process.env.PORT || 4000, lifeCycle?.http?.afterStart?.bind(app, app));
-}
+};
 
 const startHttps = async (callback: http.RequestListener) => {
   await lifeCycle?.https?.beforeStart?.call(app, app);
   https.createServer(callback.call(app)).listen(process.env.PORT2 || 4001, lifeCycle?.https?.afterStart?.bind(app, app));
-}
+};
 
 const start = async () => {
   // console.log(process.env, 'env');
@@ -38,6 +38,6 @@ const start = async () => {
   // }
 
   await Promise.all([startHttp(callback), startHttps(callback)]);
-}
+};
 
 start();

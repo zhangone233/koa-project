@@ -29,4 +29,4 @@ module.exports = {
     'body-leading-blank': [0], // body换行
     'footer-leading-blank': [0, 'always'], // footer以空行开头
   }
-}
+};

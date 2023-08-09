@@ -1,9 +1,20 @@
 ## Koa Server
-一个由 Koa + Ts 搭建的node服务。
+一个使用Koa搭建的node服务。
 
 ### 启动环境
 + Node >= 16.14
 + pnpm >= 8
+
+
+### 启动命令
+```sh
+pnpm start 
+```
+
+
+### 文件目录
+- app
+- README.md
 
 
 ### 格式化方式 (vscode编辑器环境)
@@ -11,10 +22,7 @@
 + `control + s` 保存文件自动格式化：eslint fix
 + 手动快捷键格式化：
   + prettier：`shift + option + f`
-  + eslint：`control + s` （自动）
-
-
-### 目录
+  + eslint：`control + s` （保存自动）
 
 
 ### 其它记录
